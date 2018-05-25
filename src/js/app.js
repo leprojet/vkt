@@ -5,6 +5,8 @@
         .module('vktApp', ['ui.router'])
         .controller("vktCtrl", function($scope, $http, $state, $q, APIService, Mapservice) {
 
+            // TODO: Circle um Zielort ohne Füllung
+
             console.log("Windows.scope");
             window.scope = $scope;
 
@@ -286,7 +288,6 @@
 
             $scope.getExactDistances = function() {
                 $scope.showDetailRoutes = true;
-                var point = $scope.point;
                 var routes = [];
                 var r = getRoutes();
                 r.then(function(res) {
@@ -297,6 +298,20 @@
                     $scope.d_e_hamburg = routes[3];
                     $scope.d_e_muenchen = routes[4];
                     $scope.d_e_freiburg = routes[5];
+
+                    $scope.d_d_l_oberhausen = $scope.d_e_oberhausen - $scope.d_oberhausen;
+                    $scope.d_d_l_hannover = $scope.d_e_hannover - $scope.d_hannover;
+                    $scope.d_d_l_celle = $scope.d_e_celle - $scope.d_celle;
+                    $scope.d_d_l_hamburg = $scope.d_e_hamburg - $scope.d_hamburg;
+                    $scope.d_d_l_muenchen = $scope.d_e_muenchen - $scope.d_muenchen;
+                    $scope.d_d_l_freiburg = $scope.d_e_freiburg - $scope.d_freiburg;
+
+                    $scope.d_d_r_oberhausen = $scope.d_e_oberhausen - $scope.d_r_oberhausen;
+                    $scope.d_d_r_hannover = $scope.d_e_hannover - $scope.d_r_hannover;
+                    $scope.d_d_r_celle = $scope.d_e_celle - $scope.d_r_celle;
+                    $scope.d_d_r_hamburg = $scope.d_e_hamburg - $scope.d_r_hamburg;
+                    $scope.d_d_r_muenchen = $scope.d_e_muenchen - $scope.d_r_muenchen;
+                    $scope.d_d_r_freiburg = $scope.d_e_freiburg - $scope.d_r_freiburg;
                 });
             }
 

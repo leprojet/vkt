@@ -44,7 +44,7 @@
         </div>
         <div class="row" style="margin-top: 20px">
             <div class="col col-xs-12">
-                <button ng-click="setMarker()" id="battn" class="btn btn-primary" ng-disabled="!strasse">Find Address</button>
+                <button ng-click="setMarker()" id="battn" class="btn btn-primary" ng-disabled="!ort">Find Address</button>
                 <button ng-click="deleteMarker()" class="btn btn-primary">Delete Address</button>
             </div>
         </div>
@@ -106,27 +106,41 @@
                     <table class="table table-hover" style="margin-top: 15px;" ng-if="showDetailRoutes">
                         <thead>
                             <tr>
-                                <th style="text-align: left;">Exakte Strecke</th>
+                                <th style="text-align: right;">Exakte Strecke</th>
+                                <th style="text-align: right;">&Delta;L</th>
+                                <th style="text-align: right;">&Delta;R</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="text-align: left;">{{ d_e_oberhausen | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_e_oberhausen | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_l_oberhausen | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_r_oberhausen | number: 2 }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left;">{{ d_e_hannover | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_e_hannover | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_l_hannover | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_r_hannover | number: 2 }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left;">{{ d_e_celle | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_e_celle | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_l_celle | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_r_celle | number: 2 }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left;">{{ d_e_hamburg | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_e_hamburg | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_l_hamburg | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_r_hamburg | number: 2 }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left;">{{ d_e_freiburg | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_e_freiburg | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_l_freiburg | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_r_freiburg | number: 2 }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left;">{{ d_e_muenchen | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_e_muenchen | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_l_muenchen | number: 2 }}</td>
+                                <td style="text-align: right;">{{ d_d_r_muenchen | number: 2 }}</td>
                             </tr>
                         </tbody>
                     </table>
