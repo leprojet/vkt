@@ -1,0 +1,59 @@
+#map {
+    width: 100%;
+    height: 600px;
+}
+
+body {
+    padding-top: 50px;
+    background: rgb(23, 38, 38);
+    color: white;
+}
+
+table {
+    color: white;
+}
+
+h1 {
+    color: #000;
+    font-style: italic;
+}
+
+h2,
+h3,
+h4,
+h5 {
+    color: white;
+}
+
+p {
+    color: white;
+}
+
+.progress {
+    height: 1000px;
+}
+
+.precobs-dim {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 16777270 !important;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.precobs-dim .connection-note {
+    margin-top: 40vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    background-color: #FEFEFE;
+    padding: 18px 23px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 1px 0 rgba(0, 0, 0, 0.20) !important;
+}
+
+.precobs-dim .connection-note .connection-note-head {
+    display: flex;
+}

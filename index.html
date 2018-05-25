@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vater-Kind-Tour 2019</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.css">
+    <link rel="stylesheet" href="./src/css/app.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.18/angular-ui-router.js"></script>
+    <script src="./src/js/pouchdb-6.4.3.min.js"></script>
+
+</head>
+
+<body ng-app="vktApp" ng-controller="vktCtrl">
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Vater-Kind-Tour 2019</h1>
+        </div>
+        <div id="map"></div>
+        <div class="row">
+            <div class="col col-xs-3">
+                <label for="strasse">Straße</label>
+                <input ng-model="strasse" type="text" id="strasse" class="form-control">
+            </div>
+            <div class="col col-xs-3">
+                <label for="nr">Nr</label>
+                <input ng-model="nr" type="text" id="nr" class="form-control">
+            </div>
+            <div class="col col-xs-3">
+                <label for="plz">PLZ</label>
+                <input ng-model="plz" type="text" id="plz" class="form-control">
+            </div>
+            <div class="col col-xs-3">
+                <label for="Ort">Ort</label>
+                <input ng-model="ort" type="text" id="ort" class="form-control">
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+            <div class="col col-xs-12">
+                <button ng-click="setMarker()" id="battn" class="btn btn-primary" ng-disabled="!strasse">Find Address</button>
+                <button ng-click="deleteMarker()" class="btn btn-primary">Delete Address</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top:25px; border-top: 1px dashed white;">
+            <div class="col col-xs-6" style="margin-top: 20px;">
+                <div style="height: 450px">
+                    <div ng-if="d_oberhausen">
+                        <h4>Entfernungen</h4>
+                        <table class="table" style="margin-top: 15px;">
+                            <thead>
+                                <tr>
+                                    <th>Ort</th>
+                                    <th style="text-align: right">Luftlinie</th>
+                                    <th style="text-align: right">&asymp; Fahrstrecke</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Oberhausen</td>
+                                    <td style="text-align: right">{{d_oberhausen | number: 2}}</td>
+                                    <td style="text-align: right">{{ d_r_oberhausen | number: 2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Hannover</td>
+                                    <td style="text-align: right">{{d_hannover | number: 2}}</td>
+                                    <td style="text-align: right">{{d_r_hannover | number: 2}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Celle</td>
+                                    <td style="text-align: right">{{d_celle | number: 2}}</td>
+                                    <td style="text-align: right">{{d_r_celle | number: 2}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Hamburg</td>
+                                    <td style="text-align: right">{{d_hamburg | number: 2}}</td>
+                                    <td style="text-align: right">{{d_r_hamburg | number: 2}}</td>
+                                </tr>
+                                <tr>
+                                    <td>München</td>
+                                    <td style="text-align: right">{{d_muenchen | number: 2}}</td>
+                                    <td style="text-align: right">{{d_r_muenchen | number: 2}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Freiburg</td>
+                                    <td style="text-align: right">{{d_freiburg | number: 2}}</td>
+                                    <td style="text-align: right">{{d_r_freiburg | number: 2}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xs-6" style="margin-top:20px;">
+                <div style="height: 450px;">
+                    <h4 ng-if="showDetailRoutes">Detailrouten</h4>
+                    <div ng-if="!showDetailRoutes && d_oberhausen">
+                        <a href="#" ng-click="getExactDistances()" class="btn btn-primary">Detailrouten</a>
+                    </div>
+                    <table class="table table-hover" style="margin-top: 15px;" ng-if="showDetailRoutes">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">Exakte Strecke</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: left;">{{ d_e_oberhausen | number: 2 }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;">{{ d_e_hannover | number: 2 }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;">{{ d_e_celle | number: 2 }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;">{{ d_e_hamburg | number: 2 }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;">{{ d_e_freiburg | number: 2 }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;">{{ d_e_muenchen | number: 2 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 25px; border-top: 1px dashed white; display: none;">
+            <div class="col col-xs-12">
+                <div style="margin-top: 25px;">
+                    <h4>Häuser</h4>
+                </div>
+                <div style="margin-top: 25px; margin-bottom: 25px;">
+                    <select class="form-control" name="routes" id="routes" ng-change="showRoute()" ng-model="activeRoute" ng-options="haus.name for haus in houses">
+                    
+                </select>
+                </div>
+                <ui-view></ui-view>
+            </div>
+        </div>
+
+        <div id="loading-dimmer" ng-show="$root.apiProcessList.length !== 0" class="precobs-dim" style="display: none;">
+            <div id="apiloader" class="hidden-print">
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="./src/js/app.js"></script>
+    <script src="./src/js/apiservice.js"></script>
+    <script src="./src/js/mapservice.js"></script>
+    <script src="./src/js/routes.js"></script>
+</body>
+
+</html>
