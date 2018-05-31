@@ -28,6 +28,10 @@
             map.flyTo(centre, startZoom);
 
             L.control.groupedLayers(basemaps, overlay).addTo(map);
+            
+           
+            L.control.polylineMeasure().addTo(map);
+
 
             return map;
         }

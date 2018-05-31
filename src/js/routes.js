@@ -1,24 +1,19 @@
-(function() {
+(function(){
 
-    "use-strict";
+  "use-strict";
 
-    angular
+  angular
 
-        .module('vktApp')
-        .config(vktRoutes);
+    .module('vktApp')
+    .config(vktRoutes);
 
-    function vktRoutes($stateProvider) {
-
-        $stateProvider
-            .state('progress', {
-                name: 'progress',
-                url: '/progress',
-                templateUrl: './src/pages/progress.html'
-            })
-            .state('dsgvo', {
-                name: 'DS-GVO',
-                url: '/dsgvo',
-                templateUrl: './src/pages/dsgvo.html'
-            });
+    function vktRoutes($stateProvider){
+      
+      $stateProvider
+      .state('hausDetails', {
+        name: "hausDetails",
+        url: "haus-details",
+        templateUrl: "./src/pages/haus.html"
+      });
     }
 })();

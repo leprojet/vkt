@@ -24,12 +24,12 @@
         }
 
         this.getPoint = function(strasse, nr, plz, ort) {
-            var searchURL = "http://nominatim.openstreetmap.org/search?q=" + nr + '+' + strasse + '+' + ort + '+' + plz + "&format=json&polygon=1&addressdetails=1";
+            var searchURL = "https://nominatim.openstreetmap.org/search?q=" + nr + '+' + strasse + '+' + ort + '+' + plz + "&format=json&polygon=1&addressdetails=1";
             return get(searchURL, null);
         }
 
         this.getAddressFromPoint = function(_point){
-            var requestPath = "http://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" + point.lat + "&lon=" + point.lng;
+            var requestPath = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" + point.lat + "&lon=" + point.lng;
             return get(requestPath, null);
         };
 

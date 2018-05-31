@@ -1,0 +1,9 @@
+<h4>{{ haus.name }}</h4>
+<hr>
+<label for="anschrift">Anschrift</label>
+<input class="form-control" type="text" placeholder="Anschrift">
+<label for="preis">Preis pro Übernachtung</label>
+<input class="form-control" type="text" placeholder="Preis pro Übernachtung">
+<label for="anmerkung">Anmerkungen</label>
+<textarea class="form-control" name="anmerkung" id="anmerkungen" cols="30" rows="10" placeholder="Anmerkungen"></textarea>
+<span uib-rating ng-model="score" max="5" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three', 'four', 'five']" ></span>
